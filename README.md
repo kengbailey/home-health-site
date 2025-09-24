@@ -19,6 +19,30 @@ The website will be available at: http://localhost:8080
 ### For Cloudflare Tunnel:
 Use any available port (e.g., 8080, 8081, 3000) when running the container, then point your Cloudflare tunnel to that port.
 
+## Docker Compose Deployment
+
+For easy deployment on a VPS or server, use Docker Compose:
+
+### Deploy with Docker Compose:
+```bash
+docker-compose up -d
+```
+
+### Update to latest image:
+```bash
+docker-compose pull && docker-compose up -d
+```
+
+### View logs:
+```bash
+docker-compose logs -f home-health-site
+```
+
+### Stop the service:
+```bash
+docker-compose down
+```
+
 ## Docker Commands
 
 ### Stop the container:
