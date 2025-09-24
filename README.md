@@ -1,17 +1,17 @@
-# Graceful Haven Website - Docker Setup
+# home-health-site - Docker Setup
 
-A simple Docker setup for the Graceful Haven adult care website using nginx:alpine.
+A simple Docker setup for the home-health-site adult care website using nginx:alpine.
 
 ## Quick Start
 
 ### Build the Docker image:
 ```bash
-docker build -t graceful-haven-website .
+docker build -t home-health-site .
 ```
 
 ### Run the container:
 ```bash
-docker run -d -p 8080:80 --name graceful-haven graceful-haven-website
+docker run -d -p 8080:80 --name home-health-site home-health-site
 ```
 
 The website will be available at: http://localhost:8080
@@ -23,12 +23,12 @@ Use any available port (e.g., 8080, 8081, 3000) when running the container, then
 
 ### Stop the container:
 ```bash
-docker stop graceful-haven
+docker stop home-health-site
 ```
 
 ### Remove the container:
 ```bash
-docker rm graceful-haven
+docker rm home-health-site
 ```
 
 ### View running containers:
@@ -38,7 +38,7 @@ docker ps
 
 ### View container logs:
 ```bash
-docker logs graceful-haven
+docker logs home-health-site
 ```
 
 ## Image Details
