@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   home-health-site-cloudflared:
     image: cloudflare/cloudflared:latest
@@ -8,12 +6,18 @@ services:
     environment:
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
     command: tunnel --no-autoupdate run
+    networks:
+      - tunnel-network
 
   home-health-site:
     image: ghcr.io/kengbailey/home-health-site:main
-    ports:
-      - "80:80"
     restart: unless-stopped
     container_name: home-health-site
     depends_on:
       - home-health-site-cloudflared
+    networks:
+      - tunnel-network
+
+networks:
+  tunnel-network:
+    driver: bridge
