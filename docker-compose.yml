@@ -1,9 +1,19 @@
 version: '3.8'
 
 services:
+  home-health-site-cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: health-site-cft
+    restart: always
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    command: tunnel --no-autoupdate run
+
   home-health-site:
-    image: ghcr.io/kengbailey/home-health-site:latest
+    image: ghcr.io/kengbailey/home-health-site:main
     ports:
       - "80:80"
     restart: unless-stopped
     container_name: home-health-site
+    depends_on:
+      - home-health-site-cloudflared
