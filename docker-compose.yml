@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  home-health-site:
+    image: ghcr.io/kengbailey/home-health-site:latest
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    container_name: home-health-site
