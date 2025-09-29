@@ -663,21 +663,22 @@
                     </ul>
                     <div class="map-placeholder">Google Maps Embed Location</div>
                 </div>
-                <div class="contact-form">
+                <form class="contact-form" id="contactForm">
+                    <div id="form-message" style="display: none; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; font-weight: 500;"></div>
                     <div class="form-group">
                         <label for="name">Full Name</label>
-                        <input type="text" id="name" placeholder="Your name">
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="your.email.com">
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" placeholder="How can we help you?"></textarea>
+                        <textarea id="message" name="message" placeholder="How can we help you?" required></textarea>
                     </div>
-                    <button type="submit" class="cta-btn">Send Message</button>
-                </div>
+                    <button type="submit" class="cta-btn" id="submitBtn">Send Message</button>
+                </form>
             </div>
         </div>
     </section>
@@ -748,6 +749,49 @@
             } else {
                 header.style.backgroundColor = 'var(--color-primary)';
                 header.style.boxShadow = 'none';
+            }
+        });
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('form-message');
+            const formData = new FormData(this);
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            formMessage.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    formMessage.textContent = result.message;
+                    formMessage.style.backgroundColor = '#d4edda';
+                    formMessage.style.color = '#155724';
+                    formMessage.style.border = '1px solid #c3e6cb';
+                    formMessage.style.display = 'block';
+                    this.reset(); // Clear form
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                formMessage.textContent = error.message || 'An error occurred. Please try again later.';
+                formMessage.style.backgroundColor = '#f8d7da';
+                formMessage.style.color = '#721c24';
+                formMessage.style.border = '1px solid #f5c6cb';
+                formMessage.style.display = 'block';
+            } finally {
+                submitBtn.textContent = 'Send Message';
+                submitBtn.disabled = false;
             }
         });
     </script>

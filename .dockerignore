@@ -3,6 +3,12 @@
 README.md
 Dockerfile
 .dockerignore
-node_modules
 .DS_Store
 *.log
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.coverage
+.env
+database.db
